@@ -1,8 +1,6 @@
 import { Command, flags } from "@oclif/command";
 
 import { Jsonnet } from "./jsonnet";
-import { string } from "@oclif/parser/lib/flags";
-import cli from "cli-ux";
 import { arch, homedir } from 'os';
 
 const fs = require("fs");
@@ -63,7 +61,7 @@ class Archetype extends Command {
       char: "a",
       description: "the archetype to use",
       default: "node-ts",
-      options: fs.readdirSync( join ( homedir(), ".archetype", "/archetypes" ) ) // generate from archetypes listing
+      options: fs.readdirSync( join ( homedir(), ".archetype", "archetypes" ))
     })
   };
 
