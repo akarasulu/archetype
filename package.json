@@ -1,0 +1,56 @@
+{
+  "name": "archetype",
+  "description": "Project archetypes using jsonnet",
+  "version": "0.0.0",
+  "author": "Alex Karasulu @akarasulu",
+  "bin": {
+    "archetype": "./bin/run"
+  },
+  "bugs": "https://github.com/akarasulu/archetype/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "cli-ux": "^5.2.0",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/test": "^1",
+    "@oclif/tslint": "^3",
+    "@types/chai": "^4",
+    "@types/mocha": "^5",
+    "@types/node": "^10",
+    "chai": "^4",
+    "mocha": "^5",
+    "nyc": "^13",
+    "ts-node": "^8",
+    "tslint": "^5",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ],
+  "homepage": "https://github.com/akarasulu/archetype",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": "akarasulu/archetype",
+  "scripts": {
+    "posttest": "tslint -p test -t stylish",
+    "prepack": "rm -rf lib && tsc -b",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
+  },
+  "types": "lib/index.d.ts",
+  "oclif": {
+    "bin": "archetype",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  }
+}

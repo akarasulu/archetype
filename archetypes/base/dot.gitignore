@@ -1,0 +1,6 @@
+*-debug.log
+*-error.log
+/dist
+/tmp
+/package-lock.json
+node_modules
