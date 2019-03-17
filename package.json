@@ -8,9 +8,10 @@
   },
   "bugs": "https://github.com/akarasulu/archetype/issues",
   "dependencies": {
-    "@oclif/command": "^1",
+    "@oclif/command": "^1.5.12",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "@types/": "oclif/plugin-help",
     "@types/node": "^11.11.3",
     "cli-ux": "^5.2.0",
     "ts-node": "^8.0.3",

@@ -34,7 +34,7 @@ class Archetype extends Command {
       default: false,
       exclusive: ['ask_trigger']
     }),
-    repo_type: flags.enum({
+    repo_type: flags.option({
       char: 't',
       description: 'the type of project repository',
       options: ['gitlab', 'github', 'unknown'],
@@ -51,7 +51,7 @@ class Archetype extends Command {
       char: 'c',
       description: 'optional archetype args copied from project path'
     }),
-    question_trigger: flags.enum({
+    question_trigger: flags.option({
       char: 'q',
       description: 'setting conditions triggering questions',
       options: ['defaults', 'settings', 'overrides']
@@ -75,22 +75,20 @@ class Archetype extends Command {
   static strict = false
 
   async run() {
-    const {args, flags} = this.parse(Archetype)
+    const {args, flags} = this.parse(Archetype, this.argv)
     const mainDir: string = join(__dirname, '..')
 
 
     if (flags.list) {
       fs.readdirSync(join(mainDir, 'archetypes')).forEach((element: string) => {
-        this.log(element)
+        this.log(element, {})
       })
       this.exit(0)
     }
 
     if (args.project_name === undefined) {
-      this.error(
-        "Can't help without a project name\n" +
-          'Get more help with -h or --help'
-      )
+      this.error( "Can't help without a project name\n" 
+        + 'Get more help with -h or --help', {exit: 2} )
     }
 
     /**
