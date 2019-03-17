@@ -1,5 +1,5 @@
-var fs = require("fs");
-var exec = require("child_process").exec,
+let fs = require("fs");
+let exec = require("child_process").exec,
   child;
 
 /**
@@ -12,69 +12,70 @@ var exec = require("child_process").exec,
  * out how to work with it properly,
  */
 export class Jsonnet {
-  private outFile: string | null = null;
-  private libPaths: Array<string> = [];
-  private args: Map<string, string> = new Map();
-  private vars: Map<string, string> = new Map();
-  private inFileChanged: number = Number.NEGATIVE_INFINITY;
-  private outFileChanged: number = Number.NEGATIVE_INFINITY;
+  private outFile: string | null = null
+  private readonly libPaths: Array<string> = []
+  private readonly args: Map<string, string> = new Map()
+  private readonly vars: Map<string, string> = new Map()
+  private readonly inFileChanged: number = Number.NEGATIVE_INFINITY
+  private outFileChanged: number = Number.NEGATIVE_INFINITY
 
-  constructor(private inFile: string) {
+  constructor(private readonly inFile: string) {
     // check file, record last mode timestamp
     if (!fs.existsSync(inFile)) {
-      throw new Error("Input file " + inFile + " does not exist.");
+      throw new Error('Input file ' + inFile + ' does not exist.')
     }
 
-    var stats = fs.statSync(inFile);
-    this.inFileChanged = stats.mtimeMs;
+    let stats = fs.statSync(inFile)
+    this.inFileChanged = stats.mtimeMs
   }
 
   setOutFile(outFile: string) {
-    this.outFile = outFile;
+    this.outFile = outFile
     if (fs.existsSync(outFile)) {
-      var stats = fs.statSync(outFile);
-      this.outFileChanged = stats.mtimeMs;
+      let stats = fs.statSync(outFile)
+      this.outFileChanged = stats.mtimeMs
     }
-    return this;
+    return this
   }
 
   addLibPath(path: string) {
-    this.libPaths.push(path);
-    return this;
+    this.libPaths.push(path)
+    return this
   }
 
   addArgs(key: string, value: string) {
-    this.args.set(key, value);
-    return this;
+    this.args.set(key, value)
+    return this
   }
 
   addVars(key: string, value: string) {
-    this.vars.set(key, value);
-    return this;
+    this.vars.set(key, value)
+    return this
   }
 
   execute() {
-    var cmd = "jsonnet";
+    let cmd = 'jsonnet'
     this.libPaths.forEach(element => {
-      cmd += " -J " + element;
-    });
+      cmd += ' -J ' + element
+    })
 
     this.args.forEach((val: string, key: string) => {
-      cmd += " -A " + key + '="' + val + '"';
-    });
+      cmd += ' -A ' + key + '="' + val + '"'
+    })
 
     this.vars.forEach((val: string, key: string) => {
-      cmd += " -V " + key + '="' + val + '"';
-    });
+      cmd += ' -V ' + key + '="' + val + '"'
+    })
 
-    cmd += " " + this.inFile + " -o " + this.outFile;
+    cmd += ' ' + this.inFile + ' -o ' + this.outFile
 
-    child = exec(cmd, function(err: any, stdout: any, stderr: any) {
+    child = exec(cmd, function (err: any, stdout: any, stderr: any) {
       if (err !== null) {
-        console.log("exec error: " + err);
+        console.log('exec error: ' + err)
       }
-    });
+    })
 
-    return this;
+    return this
   }
 }
+
