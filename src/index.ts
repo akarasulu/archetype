@@ -1,7 +1,7 @@
 import { Command, flags } from "@oclif/command";
 
 import { Jsonnet } from "./jsonnet";
-import { arch, homedir } from 'os';
+import { arch, homedir } from "os";
 
 const fs = require("fs");
 const { join } = require("path");
@@ -61,7 +61,7 @@ class Archetype extends Command {
       char: "a",
       description: "the archetype to use",
       default: "node-ts",
-      options: fs.readdirSync( join ( homedir(), ".archetype", "archetypes" ))
+      options: fs.readdirSync(join(homedir(), ".archetype", "archetypes"))
     })
   };
 
@@ -77,13 +77,12 @@ class Archetype extends Command {
 
   async run() {
     const { args, flags } = this.parse(Archetype);
-    const confDir = join( homedir(), ".archetype" );
+    const confDir = join(homedir(), ".archetype");
 
     if (flags.list) {
-      fs.readdirSync( join( confDir, "archetypes")).forEach ((element: string) => {
-          this.log(element);
-        }
-      );
+      fs.readdirSync(join(confDir, "archetypes")).forEach((element: string) => {
+        this.log(element);
+      });
       this.exit(0);
     }
 
@@ -99,28 +98,27 @@ class Archetype extends Command {
      * 2. Process jsonnet files in archdir to dump into the prjdir
      * 3. Initialize git, create remote project and push
      */
-    const projDir =  join (args.project_name);
-    const srcDir = join (projDir, "src");
-    const archDir = join (confDir, "archetypes", flags.archetype_id);
+    const projDir = join(args.project_name);
+    const srcDir = join(projDir, "src");
+    const archDir = join(confDir, "archetypes", flags.archetype_id);
 
-    fs.mkdirSync (projDir);
-    fs.mkdirSync (srcDir);
-    const files   = fs.readdirSync (archDir);
+    fs.mkdirSync(projDir);
+    fs.mkdirSync(srcDir);
+    const files = fs.readdirSync(archDir);
 
     files.forEach((element: string) => {
       let srcFile = join(archDir, element);
 
-      if (element.startsWith('dot.')) {
+      if (element.startsWith("dot.")) {
         fs.copyFileSync(srcFile, join(projDir, element.slice(3)));
-      }
-      else if (element.startsWith('index.')) {
+      } else if (element.startsWith("index.")) {
         fs.copyFileSync(srcFile, join(srcDir, element));
-      }
-      else if (element.endsWith('.jsonnet')) {
-        let wrapper = new Jsonnet (join (archDir, element));
-        let outFile = join (projDir, element.slice(0, -3));
-        
-        wrapper.setOutFile(outFile)
+      } else if (element.endsWith(".jsonnet")) {
+        let wrapper = new Jsonnet(join(archDir, element));
+        let outFile = join(projDir, element.slice(0, -3));
+
+        wrapper
+          .setOutFile(outFile)
           .addLibPath(confDir)
           .addArgs("name", args.project_name)
           .execute();

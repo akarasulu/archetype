@@ -3,11 +3,23 @@
 const fs = require('fs')
 const path = require('path')
 const project = path.join(__dirname, '../tsconfig.json')
+console.log('project = ' + project);
+
 const dev = fs.existsSync(project)
 
 if (dev) {
-  require('ts-node').register({project})
+  console.log('in dev mode');
+  const tsNode = require('ts-node');
+  console.log('required ts-node');
+  tsNode.register();
+  // tsNode.register({project});
+  console.log('registered project:\n{\n' + project + "\n}");
 }
+
+console.log('registered project');
 
 require(`../${dev ? 'src' : 'lib'}`).run()
 .catch(require('@oclif/errors/handle'))
+
+console.log('done');
+

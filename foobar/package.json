@@ -1,0 +1,19 @@
+{
+   "archetype": "bootstrap",
+   "author": "akarasulu",
+   "bugs": "https://git.karasulu.org/foobar/issues",
+   "description": "unknown",
+   "files": [
+      "/bin",
+      "/lib"
+   ],
+   "keywords": [ ],
+   "license": "Apache-2.0",
+   "main": "lib/index.js",
+   "name": "foobar",
+   "repository": "https://git.karasulu.org/foobar",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "version": "0.0.1"
+}
