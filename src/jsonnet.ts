@@ -1,6 +1,5 @@
-let fs = require("fs");
-let exec = require("child_process").exec,
-  child;
+let fs = require('fs')
+let exec = require('child_process').exec
 
 /**
  * A wrapper around the native executable. Could not get the libjsonnet.js
@@ -69,13 +68,12 @@ export class Jsonnet {
 
     cmd += ' ' + this.inFile + ' -o ' + this.outFile
 
-    child = exec(cmd, function (err: any, stdout: any, stderr: any) {
+    exec(cmd, function (err: any) {
       if (err !== null) {
-        console.log('exec error: ' + err)
+        // console.log('exec error: ' + err)
       }
     })
 
     return this
   }
 }
-

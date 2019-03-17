@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import {arch, homedir} from 'os'
+import {homedir} from 'os'
 
 import {Jsonnet} from './jsonnet'
 
