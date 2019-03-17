@@ -1,18 +1,29 @@
 {
   "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@app": ["src"],
+      "*": [ "node_modules/*" ],
+      "@app/*": ["src/*"],
       "@archetypes/*": ["archetypes/*"],
     },
     "declaration": true,
     "importHelpers": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
     "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "lib",
     "rootDir": "src",
     "strict": true,
     "target": "es2017",
-    "composite": true
+    "composite": true,
+    "lib": ["esnext"]
   },
   "include": [
     "src/**/*"
