@@ -1,6 +1,5 @@
 import {Command, flags} from '@oclif/command'
 import {homedir} from 'os'
-
 import {Jsonnet} from './jsonnet'
 
 const fs = require('fs')
@@ -77,10 +76,11 @@ class Archetype extends Command {
 
   async run() {
     const {args, flags} = this.parse(Archetype)
-    const confDir = join(homedir(), '.archetype')
+    const mainDir: string = join(__dirname, '..')
+
 
     if (flags.list) {
-      fs.readdirSync(join(confDir, 'archetypes')).forEach((element: string) => {
+      fs.readdirSync(join(mainDir, 'archetypes')).forEach((element: string) => {
         this.log(element)
       })
       this.exit(0)
@@ -100,7 +100,8 @@ class Archetype extends Command {
      */
     const projDir = join(args.project_name)
     const srcDir = join(projDir, 'src')
-    const archDir = join(confDir, 'archetypes', flags.archetype_id)
+    const archDir = join(mainDir, 'archetypes', flags.archetype_id)
+    const confDir = 
 
     fs.mkdirSync(projDir)
     fs.mkdirSync(srcDir)
@@ -119,7 +120,10 @@ class Archetype extends Command {
 
         wrapper
           .setOutFile(outFile)
-          .addLibPath(confDir)
+
+          // make ~/.archetype/personal-settings.jsonnet available for import
+          .addLibPath(join(homedir(), '.archetype'))
+          
           .addArgs('name', args.project_name)
           .execute()
       }
