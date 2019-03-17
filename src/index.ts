@@ -99,9 +99,12 @@ class Archetype extends Command {
      * 2. Process jsonnet files in archdir to dump into the prjdir
      * 3. Initialize git, create remote project and push
      */
-    fs.mkdirSync (args.project_name);
     const projDir =  join (args.project_name);
+    const srcDir = join (projDir, "src");
     const archDir = join (confDir, "archetypes", flags.archetype_id);
+
+    fs.mkdirSync (projDir);
+    fs.mkdirSync (srcDir);
     const files   = fs.readdirSync (archDir);
 
     files.forEach((element: string) => {
@@ -109,6 +112,9 @@ class Archetype extends Command {
 
       if (element.startsWith('dot.')) {
         fs.copyFileSync(srcFile, join(projDir, element.slice(3)));
+      }
+      else if (element.startsWith('index.')) {
+        fs.copyFileSync(srcFile, join(srcDir, element));
       }
       else if (element.endsWith('.jsonnet')) {
         let wrapper = new Jsonnet (join (archDir, element));

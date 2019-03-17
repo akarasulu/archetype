@@ -3,7 +3,7 @@ local settings = import "personal-settings.jsonnet";
 /**
   Used for the initially generated package.json.
  */
-function (name, main="lib/index.js", author="unknown", description="unknown") {
+function (name, main="src/index.html", author="unknown", description="unknown") {
     archetype: "base",
     name: name,                             
     version: if std.objectHas(settings, "preferred_start_version") then 
