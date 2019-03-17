@@ -61,7 +61,7 @@ class Archetype extends Command {
       char: 'a',
       description: 'the archetype to use',
       default: 'node-ts',
-      options: fs.readdirSync(join(homedir(), '.archetype', 'archetypes'))
+      options: fs.readdirSync(join(__dirname, '..', 'archetypes'))
     })
   }
 
