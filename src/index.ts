@@ -57,6 +57,13 @@ class Archetype extends Command {
       description: 'setting conditions triggering questions',
       options: ['defaults', 'settings', 'overrides']
     }),
+    mixin_ids: flags.string({
+      char: 'm',
+      description: 'the mixins to use',
+      default: ['yarn'],
+      multiple: true,
+      options: fs.readdirSync(join(__dirname, '..', 'mixins'))
+    }),
     archetype_id: flags.string({
       char: 'a',
       description: 'the archetype to use',
@@ -103,6 +110,13 @@ class Archetype extends Command {
     fs.mkdirSync(projDir)
     fs.mkdirSync(srcDir)
     const files = fs.readdirSync(archDir)
+
+
+    if (flags.mixin_ids !== undefined) {
+      flags.mixin_ids.forEach((mixin: string) => {
+        this.warn(`Ignoring mixin ${mixin}: mixins have not been implemented yet.`);
+      })
+    }   
 
     files.forEach((element: string) => {
       let srcFile = join(archDir, element)

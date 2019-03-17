@@ -64,3 +64,7 @@ Examples:
 archetype node-ts-cli mycli
 archetype node-ts mywebsite author=jackblack description="crazy shit"
 ```
+
+## Mixins
+
+These are additive union based merges of attributes and other things like link or script tags for an index.html for example. The other files make sense too on their own right. We can merge in packages.
