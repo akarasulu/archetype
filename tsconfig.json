@@ -8,9 +8,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "*": [ "node_modules/*" ],
-      "@app/*": ["src/*"],
-      "@archetypes/*": ["archetypes/*"],
+      "@jsonnet": ["src/jsonnet"],
     },
     "declaration": true,
     "importHelpers": true,
