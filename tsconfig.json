@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/*"],
+      "@archetypes/*": ["archetypes/*"],
+    },
     "declaration": true,
     "importHelpers": true,
     "module": "commonjs",
